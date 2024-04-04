@@ -1,17 +1,22 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const BundleAnalyzerPlugin =
+  require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
-module.exports = ( argv) => {
+module.exports = (env, argv) => {
   const isDevelopment = argv.mode === "development";
 
-  return {
+  const webpackConfig = {
+    entry: "./src/index.js",
     output: {
-      path: path.join(__dirname, "/dist"),
+      path: path.resolve(__dirname, "dist"),
       filename: "bundle.js",
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./index.html",
+        template: "index.html",
       }),
     ],
     devServer: {
@@ -45,4 +50,17 @@ module.exports = ( argv) => {
       ],
     },
   };
+
+  if (isDevelopment) {
+    webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+  } else {
+    webpackConfig.plugins.push(new CleanWebpackPlugin());
+    webpackConfig.performance = {
+      hints: "warning",
+      maxAssetSize: 2244 * 1024, // 244 KiB
+      maxEntrypointSize: 2244 * 1024, // 244 KiB
+    };
+  }
+
+  return webpackConfig;
 };
