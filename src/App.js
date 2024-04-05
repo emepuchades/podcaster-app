@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { getPodcasts } from "./utils/getPodcast";
-import Card from "./components/Card";
+import Card from "./components/Card/Card";
 
 function App() {
   const [podcasts, setPodcasts] = useState([]);
@@ -20,18 +20,20 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="container-app">
       <h1>Podcaster</h1>
-      {podcasts.map((podcast) => (
-        <div key={podcast.id.label}>
-          <Card
-            artist={podcast["im:artist"].label}
-            title={podcast.title.label}
-            img={podcast["im:image"][0].label}
-          />
-        </div>
-      ))}
-    </>
+      <div className="card-container">
+        {podcasts.map((podcast) => (
+          <div key={podcast.id.label}>
+            <Card
+              artist={podcast["im:artist"].label}
+              title={podcast["im:name"].label}
+              img={podcast["im:image"][0].label}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }
 

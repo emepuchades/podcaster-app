@@ -1,0 +1,32 @@
+.container {
+  margin: 20px;
+  position: relative;
+  text-align: center;
+  width: 200px;
+}
+
+img {
+  border-radius: 50%;
+  transform: scale(1.5, 1.5);
+}
+
+.container-image {
+  margin-bottom: -35px;
+}
+
+.container-details {
+  box-shadow: 0px 0px 10px rgba(192, 192, 192);
+  padding: 40px 2px 2px 2px;
+  border-radius: 5px;
+}
+
+.details-title {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.details-artist {
+  font-size: 14px;
+  color: #5b5b5b;
+}
