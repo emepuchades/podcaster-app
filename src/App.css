@@ -1,4 +1,4 @@
-.container-app {
+body {
   font-family: sans-serif;
   margin: 40px;
 }
@@ -6,4 +6,38 @@
 .card-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.blod {
+  font-weight: bold;
+}
+
+.input-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 20px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.podcast-length {
+  color: #ffffff;
+  background-color: #2d77b8;
+  margin-right: 5px;
+  padding: 3px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.input-filtered {
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid #cccccc;
+  border-radius: 5px;
 }
