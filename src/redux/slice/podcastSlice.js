@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   podcasts: [],
   lastFetchTime: null,
+  loader: true,
 };
 
 const podcastSlice = createSlice({
@@ -13,8 +14,11 @@ const podcastSlice = createSlice({
       state.podcasts = action.payload;
       state.lastFetchTime = Date.now();
     },
+    fetchPodcastsLoader(state, action) {
+      state.loader = action.payload;
+    },
   },
 });
 
-export const { fetchPodcastsSuccess } = podcastSlice.actions;
+export const { fetchPodcastsSuccess, fetchPodcastsLoader } = podcastSlice.actions;
 export default podcastSlice.reducer;

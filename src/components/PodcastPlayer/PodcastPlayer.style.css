@@ -1,0 +1,15 @@
+.container-player {
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(192, 192, 192);
+  height: fit-content;
+  padding: 20px;
+}
+
+.player-description {
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+
+audio {
+  width: 100%;
+}
