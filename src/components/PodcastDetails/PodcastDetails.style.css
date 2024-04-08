@@ -1,0 +1,35 @@
+.count-result {
+  padding: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(192, 192, 192);
+}
+
+.container-details-podcast {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(192, 192, 192);
+}
+
+table {
+  width: 100%;
+  border-spacing: initial;
+}
+
+.table-header {
+  text-align: left;
+  border-bottom: 1px solid #cccccc;
+}
+
+.table-row-even {
+  background-color: #f9f9f9;
+}
+
+.table-cell {
+  border-bottom: 1px solid #cccccc;
+  padding: 8px;
+}

@@ -1,0 +1,4 @@
+.container-podcast-details {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+}
