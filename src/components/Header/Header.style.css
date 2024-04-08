@@ -1,9 +1,64 @@
-h1 {
+.head {
   color: #3370a8;
-  padding-bottom: 10px;
   border-bottom: 1px solid #cccccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container-header {
+  margin-bottom: 20px;
 }
 
-.container-header {
-  margin: 40px;
+.header-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.loader-container {
+  display: flex;
+  align-items: center; /* Alinear verticalmente */
+}
+
+.loader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 20px;
+}
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color:  #3370a8;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+.dot1 {
+  top: 8px;
+  left: 8px;
+  animation-delay: 0s;
+}
+
+.dot2 {
+  top: 8px;
+  left: 32px;
+  animation-delay: 0.28s;
+}
+
+.dot3 {
+  top: 8px;
+  left: 56px;
+  animation-delay: 0.56s;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
 }
