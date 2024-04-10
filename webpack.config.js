@@ -12,7 +12,7 @@ module.exports = (env, argv) => {
     entry: "./src/index.js",
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "bundle.js",
+      publicPath: "/",
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -21,6 +21,7 @@ module.exports = (env, argv) => {
     ],
     devServer: {
       port: 3000,
+      historyApiFallback: true,
     },
     module: {
       rules: [
@@ -33,10 +34,7 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.css$/,
-          use: [
-            "style-loader",
-            "css-loader",
-          ],
+          use: ["style-loader", "css-loader"],
         },
         {
           test: /\.(png|woff|woff2|eot|ttf|svg)$/,
