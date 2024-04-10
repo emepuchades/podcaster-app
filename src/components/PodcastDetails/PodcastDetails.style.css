@@ -1,3 +1,7 @@
+.container-table {
+  overflow-x: auto;
+}
+
 .count-result {
   padding: 20px;
   font-weight: bold;
@@ -32,4 +36,52 @@ table {
 .table-cell {
   border-bottom: 1px solid #cccccc;
   padding: 8px;
+}
+
+@media screen and (min-width: 1000px) {
+  .table-header th:first-child {
+    width: 70%;
+  }
+
+  .table-header th:nth-child(2),
+  .table-header th:nth-child(3) {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .table-header th:first-child {
+    width: 50%;
+  }
+
+  .table-header th:nth-child(2),
+  .table-header th:nth-child(3) {
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .card-podcast {
+    width: 100%;
+  }
+  .container-podcast-details {
+    display: block;
+  }
+  .card-podcast-container {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card-podcast {
+    width: 100%;
+  }
+    .table-header th:first-child {
+    width: 40%;
+  }
+
+  .table-header th:nth-child(2),
+  .table-header th:nth-child(3) {
+    width: 24%;
+  }
 }

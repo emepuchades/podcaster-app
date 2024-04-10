@@ -16,9 +16,7 @@ function PodcastDetail() {
     return podcasts.find((podcast) => podcast.id.attributes["im:id"] === id);
   });
   const podcastsDetailsData = localStorage.getItem("podcastsDetails");
-  const podcastDetails = podcastsDetailsData
-    ? JSON.parse(podcastsDetailsData)
-    : [];
+  const podcastDetails = podcastsDetailsData? JSON.parse(podcastsDetailsData) : [];
   const [storedPodcastDetails, setStoredPodcastDetails] = useState(
     podcastDetails.find((podcast) => podcast.id === id)
   );
@@ -30,10 +28,7 @@ function PodcastDetail() {
         if (!storedPodcastDetails) {
           const data = await getPodcastDetails(id);
           const updatedPodcastDetails = [...podcastDetails, { id, ...data }];
-          localStorage.setItem(
-            "podcastsDetails",
-            JSON.stringify(updatedPodcastDetails)
-          );
+          localStorage.setItem( "podcastsDetails", JSON.stringify(updatedPodcastDetails));
           setStoredPodcastDetails(data);
         }
         localStorage.setItem("lastFetchTimeDetails", Date.now().toString());

@@ -25,3 +25,7 @@
 .description-podcast-container {
   padding: 30px;
 }
+
+.overflow {
+  overflow-wrap: anywhere;
+} 
