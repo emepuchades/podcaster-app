@@ -45,6 +45,11 @@ Iniciar en modo production (assets minimizados)
 npm run prod
 ```
 
+Iniciar test
+```
+ npm run test
+```
+
 ## Inicialización del proyecto
 [feat: create react app with webpack](https://github.com/emepuchades/prueba-podcasts-musicales/commit/8d2b46c4f8898eb6f83e70239356dc1d27631bb8)
   - Creé la app de React desde cero usando el comando: `npm init -y`.
