@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import './PodcastDetail.style.css';
+import "./PodcastDetail.style.css";
 import CardPodcast from "../../components/CardPodcast/CardPodcast";
 import PodcastDetails from "../../components/PodcastDetails/PodcastDetails";
 import { getPodcastDetails } from "../../utils/getPodcastDetails";
@@ -11,20 +11,33 @@ import { fetchPodcastsLoader } from "../../redux/slice/podcastSlice";
 function PodcastDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
+  dispatch(fetchPodcastsLoader(true));
+  const podcastsData = localStorage.getItem("podcasts");
+  const podcasts = podcastsData ? JSON.parse(podcastsData) : [];
   const selectedPodcast = useSelector((state) => {
-    return state.podcasts.podcasts.find(
-      (podcast) => podcast.id.attributes["im:id"] === id
-    );
-  });    
-  const podcastDetails = useSelector((state) => state.podcastDetails);
-  const loader = useSelector((state) => state.podcasts.loader);
+    return podcasts.find((podcast) => podcast.id.attributes["im:id"] === id);
+  });
+  const podcastsDetailsData = localStorage.getItem("podcastsDetails");
+  const podcastDetails = podcastsDetailsData
+    ? JSON.parse(podcastsDetailsData)
+    : [];
+  const [storedPodcastDetails, setStoredPodcastDetails] = useState(
+    podcastDetails.find((podcast) => podcast.id === id)
+  );
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getPodcastDetails(id);
-        dispatch(fetchPodcastsDetailsSuccess(data));
-        dispatch(fetchPodcastsLoader(false));
+        if (!storedPodcastDetails) {
+          const data = await getPodcastDetails(id);
+          const updatedPodcastDetails = [...podcastDetails, { id, ...data }];
+          localStorage.setItem(
+            "podcastsDetails",
+            JSON.stringify(updatedPodcastDetails)
+          );
+          setStoredPodcastDetails(data);
+        }
+        localStorage.setItem("lastFetchTimeDetails", Date.now().toString());
       } catch (error) {
         console.error("Error in get podcast:", error);
       }
@@ -33,9 +46,12 @@ function PodcastDetail() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    storedPodcastDetails && dispatch(fetchPodcastsLoader(false));
+  }, [storedPodcastDetails]);
+
   return (
     <div className="container-podcast-details">
-      {console.log('loader', loader)}
       <CardPodcast
         title={selectedPodcast["im:name"].label}
         artist={selectedPodcast["im:artist"].label}
@@ -43,8 +59,8 @@ function PodcastDetail() {
         img={selectedPodcast["im:image"][2].label}
       />
       <PodcastDetails
-        resultCount={podcastDetails?.resultCount}
-        episodes={podcastDetails?.results.slice(1)}
+        resultCount={storedPodcastDetails?.resultCount}
+        episodes={storedPodcastDetails?.results.slice(1)}
         id={id}
       />
     </div>

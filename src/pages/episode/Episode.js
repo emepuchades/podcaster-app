@@ -7,17 +7,21 @@ import PodcastPlayer from "../../components/PodcastPlayer/PodcastPlayer";
 
 function Episode() {
   const { id, idepisode } = useParams();
+  const podcastsData = localStorage.getItem("podcasts");
+  const podcasts = podcastsData ? JSON.parse(podcastsData) : [];
   const selectedPodcast = useSelector((state) => {
-    return state.podcasts.podcasts.find(
-      (podcast) => podcast.id.attributes["im:id"] === id
-    );
+    return podcasts.find((podcast) => podcast.id.attributes["im:id"] === id);
   });
-  const selectedPodcastDetails = useSelector((state) => {
-    return state.podcastDetails.results.find((podcastDetail) => {
-      return podcastDetail.trackId === parseInt(idepisode);
-    });
-  });
-
+  const podcastsDetailsData = localStorage.getItem("podcastsDetails");
+  const podcastDetails = podcastsDetailsData
+    ? JSON.parse(podcastsDetailsData)
+    : [];
+  const selectedPodcastDetails =podcastDetails.find((podcast) => podcast.id === id)
+  const selectedEpisodie = 
+    selectedPodcastDetails.results.find(
+      (episodie) => episodie.trackId === parseInt(idepisode)
+    )
+  
   return (
     <div className="container-podcast-details">
       <CardPodcast
@@ -27,9 +31,10 @@ function Episode() {
         img={selectedPodcast["im:image"][2].label}
       />
       <PodcastPlayer
-        title={selectedPodcastDetails.trackName}
-        description={selectedPodcastDetails.description}
-        podcast={selectedPodcastDetails.previewUrl}
+        title={selectedEpisodie.trackName}
+        description={selectedEpisodie.description}
+        podcast={selectedEpisodie.previewUrl}
+        id={id}
       />
     </div>
   );

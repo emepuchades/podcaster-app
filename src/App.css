@@ -17,6 +17,10 @@ body {
   font-weight: bold;
 }
 
+.right-align {
+  text-align: right;
+}
+
 .input-container {
   display: flex;
   justify-content: flex-end;

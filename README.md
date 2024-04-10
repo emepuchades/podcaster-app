@@ -64,7 +64,7 @@ npm run prod
   - Añadí estilos a la card.
 
 [feat: add store and slice to manage podcast list](https://github.com/emepuchades/prueba-podcasts-musicales/commit/d36580e01559d86a2b085e0728028809c9d120f2)
-  - Configuré el podcast para que se guarde y no realice la petición nuevamente hasta dentro de 24 horas. Implementado con slice de redux.
+  - Configuré el podcast para que se guarde y no realice la petición nuevamente hasta dentro de 24 horas. Implementado con slice de redux y localstorage.
 
 [feat: add filtering in podcast list](https://github.com/emepuchades/prueba-podcasts-musicales/commit/cee46b5ab131d244d64649d0cf99f0de6216498a)
   - Creado el filtro para el listado de podcast.

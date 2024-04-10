@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPodcastsLoader, fetchPodcastsSuccess } from "./redux/slice/podcastSlice";
+import {
+  fetchPodcastsLoader,
+  fetchPodcastsSuccess,
+} from "./redux/slice/podcastSlice";
 import { getPodcasts } from "./utils/getPodcast";
 import Card from "./components/Card/Card";
 
 function App() {
   const dispatch = useDispatch();
-  const podcasts = useSelector((state) => state.podcasts.podcasts);
-  const lastFetchTime = useSelector((state) => state.podcasts.lastFetchTime);
+  dispatch(fetchPodcastsLoader(true));
+  const podcastsData = localStorage.getItem("podcasts");
+  const [podcasts, setPodcast] = useState(podcastsData ? JSON.parse(podcastsData) : []);
   const [searchTerm, setSearchTerm] = useState("");
+  const storedLastFetchTime = localStorage.getItem("lastFetchTime");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (!lastFetchTime || Date.now() - lastFetchTime > 86400000) {
+        if (
+          !storedLastFetchTime ||
+          Date.now() - parseInt(storedLastFetchTime) > 86400000
+        ) {
           const data = await getPodcasts();
-          dispatch(fetchPodcastsSuccess(data.feed.entry));
-          dispatch(fetchPodcastsLoader(false));
+          localStorage.setItem("podcasts", JSON.stringify(data.feed.entry));
+          localStorage.setItem("lastFetchTime", Date.now().toString());
+          setPodcast(data.feed.entry);
         }
       } catch (error) {
         console.error("Error in get podcast:", error);
@@ -25,7 +34,12 @@ function App() {
     };
 
     fetchData();
-  }, [dispatch, lastFetchTime]);
+    dispatch(fetchPodcastsLoader(false));
+  }, []);
+
+   useEffect(() => {
+     podcasts.length !== 0 && dispatch(fetchPodcastsLoader(false));
+   }, [podcasts]);
 
   const filteredPodcasts = podcasts.filter((podcast) => {
     const titleMatch = podcast["im:name"].label
