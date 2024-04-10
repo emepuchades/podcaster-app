@@ -1,6 +1,7 @@
 import React from "react";
-import './PodcastPlayer.style.css'
+import "./PodcastPlayer.style.css";
 import { Link } from "react-router-dom";
+import { parseDescription } from "../../utils/parseDescription";
 
 function PodcastPlayer({ title, description, podcast, id }) {
   return (
@@ -11,10 +12,7 @@ function PodcastPlayer({ title, description, podcast, id }) {
         </Link>
       </div>
       <h3>{title}</h3>
-      <div
-        dangerouslySetInnerHTML={{ __html: description }}
-        className="player-description italic"
-      />
+      <div className="player-description italic">{parseDescription(description)}</div>
       <audio controls>
         <source src={podcast} type="audio/mpeg" />
       </audio>

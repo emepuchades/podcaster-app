@@ -5,13 +5,11 @@ import CardPodcast from "../../components/CardPodcast/CardPodcast";
 import PodcastDetails from "../../components/PodcastDetails/PodcastDetails";
 import { getPodcastDetails } from "../../utils/getPodcastDetails";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPodcastsDetailsSuccess } from "../../redux/slice/podcastDetailsSlice";
 import { fetchPodcastsLoader } from "../../redux/slice/podcastSlice";
 
 function PodcastDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  dispatch(fetchPodcastsLoader(true));
   const podcastsData = localStorage.getItem("podcasts");
   const podcasts = podcastsData ? JSON.parse(podcastsData) : [];
   const selectedPodcast = useSelector((state) => {
@@ -28,6 +26,7 @@ function PodcastDetail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        dispatch(fetchPodcastsLoader(true));
         if (!storedPodcastDetails) {
           const data = await getPodcastDetails(id);
           const updatedPodcastDetails = [...podcastDetails, { id, ...data }];
@@ -48,7 +47,7 @@ function PodcastDetail() {
 
   useEffect(() => {
     storedPodcastDetails && dispatch(fetchPodcastsLoader(false));
-  }, [storedPodcastDetails]);
+  }, [dispatch, storedPodcastDetails]);
 
   return (
     <div className="container-podcast-details">

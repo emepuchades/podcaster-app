@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  fetchPodcastsLoader,
-  fetchPodcastsSuccess,
-} from "./redux/slice/podcastSlice";
+import { useDispatch } from "react-redux";
+import { fetchPodcastsLoader } from "./redux/slice/podcastSlice";
 import { getPodcasts } from "./utils/getPodcast";
 import Card from "./components/Card/Card";
 
 function App() {
   const dispatch = useDispatch();
-  dispatch(fetchPodcastsLoader(true));
   const podcastsData = localStorage.getItem("podcasts");
   const [podcasts, setPodcast] = useState(podcastsData ? JSON.parse(podcastsData) : []);
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +15,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        dispatch(fetchPodcastsLoader(true));
         if (
           !storedLastFetchTime ||
           Date.now() - parseInt(storedLastFetchTime) > 86400000
@@ -34,12 +31,11 @@ function App() {
     };
 
     fetchData();
-    dispatch(fetchPodcastsLoader(false));
   }, []);
 
-   useEffect(() => {
-     podcasts.length !== 0 && dispatch(fetchPodcastsLoader(false));
-   }, [podcasts]);
+  useEffect(() => {
+    podcasts.length !== 0 && dispatch(fetchPodcastsLoader(false));
+  }, [podcasts]);
 
   const filteredPodcasts = podcasts.filter((podcast) => {
     const titleMatch = podcast["im:name"].label
