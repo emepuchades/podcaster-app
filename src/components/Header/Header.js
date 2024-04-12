@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.style.css";
-import { useSelector } from "react-redux";
 
-function Header() {
-  const loader = useSelector((state) => state.podcasts.loader);
-
+function Header({ loader }) {
   return (
     <div className="container-header">
       <Link to="/" className="header-link">
@@ -13,10 +10,10 @@ function Header() {
           <h1>Podcaster</h1>
           <div className="loader-container">
             {loader && (
-              <div class="loader">
-                <div class="dot dot1"></div>
-                <div class="dot dot2"></div>
-                <div class="dot dot3"></div>
+              <div className="loader">
+                <div className="dot dot1"></div>
+                <div className="dot dot2"></div>
+                <div className="dot dot3"></div>
               </div>
             )}
           </div>

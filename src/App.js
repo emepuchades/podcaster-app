@@ -1,32 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { useDispatch } from "react-redux";
-import { fetchPodcastsLoader } from "./redux/slice/podcastSlice";
 import { getPodcasts } from "./utils/getPodcast";
 import Card from "./components/Card/Card";
 
-function App() {
-  const dispatch = useDispatch();
-  const podcastsData = localStorage.getItem("podcasts");
-  const [podcasts, setPodcast] = useState(podcastsData ? JSON.parse(podcastsData) : []);
+function App({ setLoader }) {
+  const [podcasts, setPodcast] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const storedLastFetchTime = localStorage.getItem("lastFetchTime");
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        dispatch(fetchPodcastsLoader(true));
-        if (
-          !storedLastFetchTime ||
-          Date.now() - parseInt(storedLastFetchTime) > 86400000
-        ) {
-          const data = await getPodcasts();
-          localStorage.setItem("podcasts", JSON.stringify(data.feed.entry));
-          localStorage.setItem("lastFetchTime", Date.now().toString());
-          setPodcast(data.feed.entry);
-        }
+        setLoader(true);
+        const data = await getPodcasts();
+        setPodcast(data);
       } catch (error) {
-        console.error("Error in get podcast:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -34,7 +22,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    podcasts.length !== 0 && dispatch(fetchPodcastsLoader(false));
+    podcasts.length !== 0 && setLoader(false);
   }, [podcasts]);
 
   const filteredPodcasts = podcasts.filter((podcast) => {
