@@ -41,7 +41,7 @@ function PodcastDetail({ setLoader }) {
   return (
     <div className="container-podcast-details">
       <CardPodcast
-        selected={selectedPodcast["im:name"]?.label}
+        title={selectedPodcast["im:name"]?.label}
         artist={selectedPodcast["im:artist"]?.label}
         summary={selectedPodcast?.summary.label}
         img={selectedPodcast["im:image"][2]?.label}
