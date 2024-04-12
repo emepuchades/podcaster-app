@@ -14,7 +14,7 @@ function CardPodcast({ title, artist, summary, img }) {
         </div>
         <div className="description-podcast-container">
           <p className="blod">Desciption:</p>
-          <p className="italic overflow">{summary}</p>
+          <p className="overflow">{summary}</p>
         </div>
       </div>
     </div>
